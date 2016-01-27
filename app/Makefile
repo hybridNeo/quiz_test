@@ -64,7 +64,7 @@ endif
 
 LDFLAGS += -L$(OPTEE_CLIENT_EXPORT)/lib -lteec
 LDFLAGS += -lpthread
-
+CFLAGS += -I../ta/fact/include
 .PHONY: all
 all: qtest
 

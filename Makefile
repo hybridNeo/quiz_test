@@ -11,9 +11,19 @@ ifneq ($V,1)
 else
 	q :=
 endif
+.PHONY: all 
+all: qtest ta
+ta:
+	$(q)$(MAKE) -C ta CROSS_COMPILE="$(CROSS_COMPILE_TA)" \
+			  q=$(q) \
+			  O=$(out-dir)/ta \
+			  $@
 
-all:
+qtest:
 	$(q)$(MAKE) -C app CROSS_COMPILE="$(CROSS_COMPILE_HOST)" \
 			     q=$(q) \
 			     O=$(out-dir)/quiz_test \
 			     $@
+
+
+	
