@@ -25,7 +25,7 @@ ifdef CFG_GP_PACKAGE_PATH
 GP := _gp
 endif
 
-srcs := hello.c 
+srcs := quiz.c 
 
 ifdef CFG_GP_PACKAGE_PATH
 CFLAGS += -DWITH_GP_TESTS
@@ -64,7 +64,7 @@ endif
 
 LDFLAGS += -L$(OPTEE_CLIENT_EXPORT)/lib -lteec
 LDFLAGS += -lpthread
-CFLAGS += -I../ta/fact/include
+CFLAGS += -I../ta/ta_quiz/include
 .PHONY: all
 all: qtest
 

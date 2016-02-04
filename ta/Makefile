@@ -9,7 +9,7 @@ endif
 # LDFLAGS that are suitable for the client applications, not for TAs
 LDFLAGS=
 
-TA_DIRS := fact
+TA_DIRS := ta_quiz
 
 
 
