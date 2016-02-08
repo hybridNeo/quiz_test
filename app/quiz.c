@@ -6,9 +6,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <tee_client_api.h>
+#include <tee_api_defines.h>
+#include <tee_api_types.h>
 #include <ta_quiz.h>
 #include <err.h>
+#include <stdlib.h>
+#include <string.h>
 int main(void){
+ 	uint8_t question[32] =  {0};
  	TEEC_Result res;
 	TEEC_Context ctx;
 	TEEC_Session sess;
@@ -32,10 +37,11 @@ int main(void){
 	 */
 
 	memset(&op, 0, sizeof(op));
-	op.paramTypes = TEEC_PARAM_TYPES(TEEC_VALUE_OUTPUT, TEEC_VALUE_OUTPUT,
+	op.paramTypes = TEEC_PARAM_TYPES(TEEC_VALUE_OUTPUT, TEEC_MEMREF_TEMP_OUTPUT,
 					 TEEC_NONE, TEEC_NONE);
-	
-	// op.params[0].value.a = 1;
+	op.params[1].tmpref.buffer = question;
+	op.params[1].tmpref.size  = sizeof(question);
+	printf("Before:%d \n",question[0] );
 	printf("********************** QUIZ **************************\n");
 	while(1){
 		res = TEEC_InvokeCommand(&sess, TA_QUIZ_CMD_START_QUIZ, &op,&err_origin);
@@ -44,6 +50,8 @@ int main(void){
 		printf("TEE returned value  %d\n", op.params[0].value.a);
 		if(op.params[0].value.a == 0){
 			break;
+		}else{
+			printf("After: %d \n",question[0] );
 		}
 		
 	}	
